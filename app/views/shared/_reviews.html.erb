@@ -1,0 +1,43 @@
+<div id="reviews">
+  <a name="reviews_anc"></a>
+  <h3><%= t(:review_header) %></h3>
+
+  <div style="margin-bottom: 2em">
+    <a id="add_review_link" href="#"><%= t(:submit_your_review) %></a>
+  </div>
+
+  <div id="add_review_container" style="display: none">
+    <%= render 'reviews/form', { :product => @product, :review => Review.new } %>
+  </div>
+
+  <hr class="review_hr" />
+
+  <a name="reviews_list"></a>
+  <% for review in @product.reviews.approval_filter %>
+    <%= render :partial => 'shared/review', :locals => {:review => review} %>
+  <% end %>
+</div>
+
+<script type="text/javascript">
+  $(function() {
+    $('#new_review').validate({
+      rules: {
+        'review[review]': {
+          required: true
+        },
+        'review[rating]': {
+          required: true
+        },
+        'review[name]': {
+          required: true
+        }
+      },
+      messages: {
+        'review[rating]': {
+          required: '<%= t(:you_must_rate_the_product) %>'
+        }
+      }
+    });
+  });
+</script>
+

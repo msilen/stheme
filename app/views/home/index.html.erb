@@ -1,0 +1,38 @@
+<% content_for :sidebar do %>
+  <% s22models=%w(S22 SX125 SX130 SX420W SX425W SX440W SX445W SX450W) %>
+  <% s22models_office=%w(BX305F BX305FW) %>
+  <% t50models=%w(T50 T59 T60 R270 R290 R295 TX700w TX800w) %>
+  <% s22=Product.find_by_name("СНПЧ Epson S22 OEM") %>
+  <% t50=Product.find_by_name("СНПЧ Epson T50 OEM") %>
+  <% if request.fullpath=="/" %>
+      <ul>
+        <%#send to partial%>
+        <li>
+          <h4 class="ciss">СНПЧ по модели принтера</h4>
+        </li>
+        <% s22models.each do |p| %>
+          <li>
+            <%=link_to "Epson Stylus #{p}", "/products/#{s22.permalink}"%>
+          </li>
+        <% end %>
+
+        <% s22models_office.each do |p| %>
+          <li>
+            <%=link_to "Epson Stylus Office #{p}", "/products/#{s22.permalink}"%>
+          </li>
+        <% end %>
+
+        <% t50models.each do |p| %>
+          <li>
+            <%=link_to "Epson Stylus Photo #{p}", "/products/#{t50.permalink}"%>
+          </li>
+        <% end %>
+      </ul>
+  <% end %>
+
+<% end %>
+<% @taxons.each do |taxon| %>
+  <div class="taxon">
+    <%= render :partial => "shared/products", :locals => {:products => taxon_preview(taxon, 6), :taxon => taxon} %>
+  </div>
+<% end %>
