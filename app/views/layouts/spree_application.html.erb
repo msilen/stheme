@@ -90,12 +90,14 @@
   </div>
   <div align="center">
   <div class="footer_fake" align="center"></div>
-  <% cache 'footer_menu' do %>
-    <ul class="footer_menu">
-      <% for page in Page.footer_links do %>
-        <li><%= link_to page.title, page.link %></li>
-      <% end %>
-    </ul>
+  <div class="footer_menu_container">
+    <% cache 'footer_menu' do %>
+      <ul class="footer_menu">
+        <% for page in Page.footer_links do %>
+          <li><%= link_to page.title, page.link %></li>
+        <% end %>
+      </ul>
+  </div>
   </div>
 </div>
 
