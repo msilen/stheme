@@ -17,7 +17,7 @@
           <%= link_to raw(product.name), product, :class => 'product-name' %>
           <%= hook :products_list_item_image, {:product => product} do %>
           <div class="product-image-wrapper">
-              <%= link_to small_image(product), product %>
+            <%= link_to product_image(product,:itemprop => "image"), product %>
           </div>
           <% end %>
           <% if defined?(SpreeReviews) %>
