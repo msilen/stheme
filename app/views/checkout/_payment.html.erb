@@ -1,7 +1,14 @@
 <fieldset id="payment">
+  <% paycheck=@order.available_payment_methods.find{|method|method.type=="PaymentMethod::Check"} %>
+  <% if @order.shipping_method.name=="Курьером" %>
+    <% payment_methods=[paycheck] %>
+  <% else %>
+    <% payment_methods=@order.available_payment_methods-[paycheck]%>
+  <% end %>
+
   <legend><%= t("payment_information") %></legend>
   <%= hook :checkout_payment_step, {:form => form} do %>
-    <% @order.available_payment_methods.each do |method| %>
+    <% payment_methods.each do |method| %>
     <div>
       <label>
         <%= radio_button_tag "order[payments_attributes][][payment_method_id]", method.id, method == @order.payment_method %>
@@ -15,7 +22,7 @@
     <% end %>
 
     <ul id="payment-methods">
-      <% @order.available_payment_methods.each do |method| %>
+      <% payment_methods.each do |method| %>
         <li id="payment_method_<%= method.id %>"<%= ' class="last"' if method == @order.available_payment_methods.last %>>
           <fieldset>
             <%= render "checkout/payment/#{method.method_type}", :payment_method => method %>

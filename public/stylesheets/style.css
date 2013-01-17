@@ -287,6 +287,11 @@ ul.footer_menu li {
   margin-left: 1em;
 }
 
+.footer_menu_container{
+  width:1048px;
+  margin:0 auto;
+}
+
 ul.footer_menu li a {
   color: white;
 }
