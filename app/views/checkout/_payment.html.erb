@@ -1,7 +1,9 @@
 <fieldset id="payment">
   <% paycheck=@order.available_payment_methods.find{|method|method.type=="PaymentMethod::Check"} %>
-  <% if ["Курьером","Почта России (наложенным платежём)"].include?(@order.shipping_method.name) %>
+  <% if ["Почта России (наложенным платежём)"].include?(@order.shipping_method.name) %>
     <% payment_methods=[paycheck] %>
+  <% elsif ["Курьером"].include?(@order.shipping_method.name) %>
+    <% payment_methods=@order.available_payment_methods %>
   <% else %>
     <% payment_methods=@order.available_payment_methods-[paycheck]%>
   <% end %>
